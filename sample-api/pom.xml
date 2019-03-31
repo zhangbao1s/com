@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.xxx.sample</groupId>
+    <artifactId>sample-api</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.7</java.version>
+        <junit.version>4.12</junit.version>
+        <slf4j.version>1.7.12</slf4j.version>
+        <servlet.version>3.1.0</servlet.version>
+        <spring.version>4.1.6.RELEASE</spring.version>
+        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+        <maven-war-plugin.version>2.6</maven-war-plugin.version>
+        <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
+    </properties>
+
+    <dependencies>
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- SLF4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Spring Test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- API Framework -->
+        <dependency>
+            <groupId>com.xxx.api</groupId>
+            <artifactId>api-framework</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <!-- Resource Filter -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- Compile Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!-- Test Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <!-- War Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <warName>ROOT</warName>
+                </configuration>
+            </plugin>
+            <!-- Tomcat Plugin -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>${tomcat7-maven-plugin.version}</version>
+                <configuration>
+                    <path>/</path>
+                    <port>8081</port>
+                    <uriEncoding>UTF-8</uriEncoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.jdbc.host>localhost</maven.jdbc.host>
+                <maven.jdbc.port>3306</maven.jdbc.port>
+                <maven.jdbc.db>sample</maven.jdbc.db>
+                <maven.jdbc.username>root</maven.jdbc.username>
+                <maven.jdbc.password>root</maven.jdbc.password>
+                <maven.redis.host>localhost</maven.redis.host>
+                <maven.redis.port>6379</maven.redis.port>
+                <maven.redis.password>123456</maven.redis.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <maven.jdbc.host>xxx.xxx.xxx.xxx</maven.jdbc.host>
+                <maven.jdbc.port>xxx</maven.jdbc.port>
+                <maven.jdbc.db>xxx</maven.jdbc.db>
+                <maven.jdbc.username>xxx</maven.jdbc.username>
+                <maven.jdbc.password>xxx</maven.jdbc.password>
+                <maven.redis.host>xxx</maven.redis.host>
+                <maven.redis.port>xxx</maven.redis.port>
+                <maven.redis.password>xxx</maven.redis.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <maven.jdbc.host>xxx.xxx.xxx.xxx</maven.jdbc.host>
+                <maven.jdbc.port>xxx</maven.jdbc.port>
+                <maven.jdbc.db>xxx</maven.jdbc.db>
+                <maven.jdbc.username>xxx</maven.jdbc.username>
+                <maven.jdbc.password>xxx</maven.jdbc.password>
+                <maven.redis.host>xxx</maven.redis.host>
+                <maven.redis.port>xxx</maven.redis.port>
+                <maven.redis.password>xxx</maven.redis.password>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

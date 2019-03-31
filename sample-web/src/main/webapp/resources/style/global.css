@@ -1,0 +1,14 @@
+body {
+    padding-top: 70px;
+    overflow-y: scroll;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+/* ==================================================================================================== */
+
+.table td {
+    vertical-align: middle !important;
+}
